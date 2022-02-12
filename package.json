@@ -1,0 +1,20 @@
+{
+  "name": "merkle-tree-airdrop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^2.8.4"
+  },
+  "dependencies": {
+    "number-to-bn": "^1.7.0",
+    "queue-microtask": "^1.2.3",
+    "typescript": "^4.5.5"
+  },
+  "description": ""
+}
