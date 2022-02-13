@@ -52,6 +52,27 @@ describe('Merkle Airdrop', () => {
 
     expect(await airdrop.canClaim(signer.address, proof)).to.eq(false)
 
-      
+    await expect(airdrop.claim(proof)).to.be.revertedWith(
+      'MerkleAirdrop: Address is not a candidate for claim'
+    )
+
+    expect(await airdrop.claimed(guy.address)).to.eq(false)
+
+    expect(await airdrop.canClaim(guy.address, proof)).to.eq(false)
+
+    await expect(airdrop.connect(guy).claim(proof)).to.be.revertedWith(
+      'MerkleAirdrop: Address is not a candidate for claim'
+    )
+
+    const badProof = merkleTree.getHexProof(keccak256(guy.address))
+
+    expect(badProof).to.eql([])
+
+    expect(await airdrop.canClaim(guy.address, badProof)).to.eq(false)
+
+    await expect(airdrop.connect(guy).claim(badProof)).to.be.revertedWith(
+      'MerkleAirdrop: Address is not a candidate for claim'
+    )
+    
   })
 })
