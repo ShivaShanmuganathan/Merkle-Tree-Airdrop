@@ -1,29 +1,36 @@
-# Advanced Sample Hardhat Project
+# Merkle Tree ERC-20 Airdrop
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+Using Merkle tree to airdrop ERC-20 tokens in a cheap, elegant and efficient way.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+## Whitelisting
 
-Try running some of the following tasks:
+Using a Merkle Tree within an NFT (ERC-721) or Tokens (ERC20) context would be useful in situations where some amount of tokens have been reserved for a select group of participants
+
+## Contract Implementation
+A relatively simple and straightforward approach to show how using Merkle Trees for whitelist claiming in an ERC-20 project so that only designated addresses of your whitelist are able to claim. 
+
+## Clone This Repo & Run This Project
+```shell
+git clone https://github.com/ShivaShanmuganathan/Merkle-Tree-Airdrop.git
+cd Merkle-Tree-Airdrop
+npm install
+npx hardhat compile
+npx hardhat test
+```
+
+## To Deploy The Contract
+1. Deploy Locally
+2. 
+```shell
+hardhat run scripts/deploy.ts
+```
+
+2. Deploy on a network 
 
 ```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
+hardhat run --network ropsten scripts/deploy.ts
 ```
+
 
 # Etherscan verification
 
@@ -32,7 +39,7 @@ To try out Etherscan verification, you first need to deploy a contract to an Eth
 In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
 
 ```shell
-hardhat run --network ropsten scripts/sample-script.ts
+hardhat run --network ropsten scripts/deploy.ts
 ```
 
 Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
