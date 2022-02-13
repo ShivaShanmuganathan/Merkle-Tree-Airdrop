@@ -2,12 +2,15 @@
 
 Using Merkle tree to airdrop ERC-20 tokens in a cheap, elegant and efficient way.
 
-## Whitelisting
-
-Using a Merkle Tree within an NFT (ERC-721) or Tokens (ERC20) context would be useful in situations where some amount of tokens have been reserved for a select group of participants. These whitelisted addresses have been granted the ability to claim their reserved tokens at some point in time before the public mint for a variety of reasons. These may relate to avoiding high gas fees, rewarding creativity, early participation, community engagement, and etc.
-
 ## Contract Implementation
 A relatively simple and straightforward approach to show how using Merkle Trees for whitelist claiming in an ERC-20 project so that only designated addresses of your whitelist are able to claim. 
+
+
+![image](https://user-images.githubusercontent.com/30176438/153741540-8ce7d91e-eaaf-477d-a78e-137ec18d379f.png)
+
+## Whitelisting
+Using a Merkle Tree within an NFT (ERC-721) or Tokens (ERC20) context would be useful in situations where some amount of tokens have been reserved for a select group of participants. These whitelisted addresses have been granted the ability to claim their reserved tokens at some point in time before the public mint for a variety of reasons. These may relate to avoiding high gas fees, rewarding creativity, early participation, community engagement, and etc.
+
 
 ## Clone This Repo & Run This Project
 ```shell
