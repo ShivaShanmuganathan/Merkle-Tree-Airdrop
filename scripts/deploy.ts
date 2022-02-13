@@ -1,30 +1,51 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { expect } from 'chai'
+import { randomBytes } from 'crypto'
+import { Wallet } from 'ethers'
+import { parseEther } from 'ethers/lib/utils'
+import { ethers } from 'hardhat'
+import keccak256 from 'keccak256'
+import { MerkleTree } from 'merkletreejs'
+
+import {
+  MerkleAirdrop__factory,
+  MerkleAirdropToken__factory
+} from '../typechain-types'
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
 
-  // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+    const [signer] = await ethers.getSigners()
 
-  await greeter.deployed();
+    const token = await new MerkleAirdropToken__factory(signer).deploy()
+       
+    // Add Addresses to be whitelisted in the below array
+    const whitelistedAddresses = ['0x645bE56bf2B43295dF59307F2e2259c52C88ECE8', '0xAdf2228d5Bb78F8257D2480af7bfF70D0cb9E6a0', '0x9757D0877c545edec89513D2C9EF16a94C208B24'];
 
-  console.log("Greeter deployed to:", greeter.address);
+    // console.log("whitelistedAddresses", whitelistedAddresses);
+    
+    const merkleTree = new MerkleTree(
+      whitelistedAddresses,
+      keccak256,
+      { hashLeaves: true, sortPairs: true }
+    )
+
+    const root = merkleTree.getHexRoot()
+
+    const airdrop = await new MerkleAirdrop__factory(signer).deploy(
+      token.address,
+      root
+    )
+
+    await token.transfer(airdrop.address, parseEther('10'))
+    console.log("Deployment Compelete")
+    
+    
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+    .then(() => process.exit(0))
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
+    });
+
+
