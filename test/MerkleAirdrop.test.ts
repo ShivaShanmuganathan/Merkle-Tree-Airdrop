@@ -36,6 +36,22 @@ describe('Merkle Airdrop', () => {
 
     await token.transfer(airdrop.address, parseEther('10'))
     
+    const proof = merkleTree.getHexProof(keccak256(signer.address))
+
+    expect(await airdrop.claimed(signer.address)).to.eq(false)
+
+    expect(await airdrop.canClaim(signer.address, proof)).to.eq(true)
+
+    await expect(() => airdrop.claim(proof)).to.changeTokenBalances(
+      token,
+      [airdrop, signer],
+      [parseEther('-1'), parseEther('1')]
+    )
+
+    expect(await airdrop.claimed(signer.address)).to.eq(true)
+
+    expect(await airdrop.canClaim(signer.address, proof)).to.eq(false)
+
       
   })
 })
